@@ -48,13 +48,13 @@ jobs:
           name: "${{ inputs.projectArtifactName }}"
           path: ${{ env.projectDir }}
           
-      - uses: guganana/UnrealCodeBuilder/run-command@main
+      - uses: DarcJC/UnrealCodeBuilder/run-command@main
         with:
           projectPath: ${{ env.projectDir }}
           command: "parse-metadata"
           args: "${{ matrix.UEVersion }}"
                   
-      - uses: guganana/UnrealCodeBuilder/run-command@main
+      - uses: DarcJC/UnrealCodeBuilder/run-command@main
         with:
           projectPath: ${{ env.projectDir }}
           command: "write-release-metadata"
@@ -79,7 +79,7 @@ jobs:
           echo "$env:compiledDir"
           echo "$env:friendlyVersion"
 
-      - uses: guganana/UnrealCodeBuilder@main
+      - uses: DarcJC/UnrealCodeBuilder@main
         with:
           enginePath: "${{ secrets.UNREALCODEBUILDER_ENGINE_ENDPOINT }}"
           unrealVersion: ${{ matrix.UEVersion }}
@@ -100,7 +100,7 @@ jobs:
       
       - if: ${{ inputs.prepareForMarketplace }}
         name: clean
-        uses: guganana/UnrealCodeBuilder/run-command@main
+        uses: DarcJC/UnrealCodeBuilder/run-command@main
         with:
           projectPath: ${{ env.compiledDir }}
           command: "marketplace-clean"          
@@ -126,7 +126,6 @@ jobs:
     runs-on : ubuntu-latest
     needs: ['builder']
     steps:
-
       - uses: geekyeggo/delete-artifact@dc8092f14c4245ef6a3501b1669b171c12899167
         with:
             name: "${{ inputs.projectArtifactName }}"

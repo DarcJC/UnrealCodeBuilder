@@ -56,15 +56,15 @@ runs:
         echo "$engineSHA"    
         echo "ENGINE_SHA=$engineSHA" >> $env:GITHUB_OUTPUT        
         
-    # You can fork our repo and remove this step if you really want to stay anonymous
-    - name: Sending one-time use telemetry
-      shell: pwsh
-      continue-on-error: true
-      run: |
-        $Agent = "${{ github.repository }}";
-        $BuilderVersion = "1.0";
-        $body = "{\""pluginName\"": \""CodeBuilder\"", \""appId\"":\""$Agent\"", \""versionFriendly\"":\""$BuilderVersion\"" }";
-        curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage;
+    # # You can fork our repo and remove this step if you really want to stay anonymous
+    # - name: Sending one-time use telemetry
+    #   shell: pwsh
+    #   continue-on-error: true
+    #   run: |
+    #     $Agent = "${{ github.repository }}";
+    #     $BuilderVersion = "1.0";
+    #     $body = "{\""pluginName\"": \""CodeBuilder\"", \""appId\"":\""$Agent\"", \""versionFriendly\"":\""$BuilderVersion\"" }";
+    #     curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage;
         
     # Attempt to retrieve a cached version of the engine image so we can spare bandwith and improve step speeds
     # Make sure to use https://github.com/Guganana/MinimalUE to create a Unreal Engine compressed image so it is around 100MB rather than 50+GB
